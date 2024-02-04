@@ -1,0 +1,92 @@
+.feature {
+    &_subTitle {
+        color: var(--primary);
+    }
+
+    &_item {
+        p {
+            color: var(--primary-text);
+        }
+
+        span {
+            color: var(--primary);
+        }
+    }
+
+    &_text {
+        color: var(--primary-text);
+    }
+
+}
+
+.FoodCategory {
+    text-align: center;
+    background-color: var(--primary);
+    margin-top: 30px;
+    padding: 20px 0;
+    border-radius: 8px;
+
+    button {
+        border: none;
+        outline: none;
+        padding: 7px 20px;
+        background: transparent;
+        color: #fff;
+
+        &:focus{
+            background-color: #fff;
+            color: var(--primary);
+            border-radius: 5px;
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+.yumDash {
+    &_desc {
+        color: var(--primary-text);
+        line-height: 28px;
+    }
+
+    _title span {
+        color: var(--primary);
+    }
+}
+
+.choose_us {
+    &_title {
+        font-weight: 600;
+        margin-bottom: 10px;
+
+        i {
+            color: var(--primary);
+            font-weight: 500 !important;
+        }
+    }
+
+    &_desc {
+        font-size: 1rem;
+        color: var(--primary-text);
+    }
+
+}
+
+.Testimonial {
+    &_title {
+        color: var(--primary);
+    }
+
+    &_sub_title span {
+        color: var(--primary);
+    }
+
+    &_desc {
+        color: var(--primary-text);
+        line-height: 30px;
+    }
+}
+
