@@ -63,16 +63,16 @@ const Home = () => {
     if (category === "ALL") {
       setProducts(Products);
     } else if (category === "BURGER") {
-      const FilteredProducts = Products.filter(item => item.category === "Burger");
+      const FilteredProducts = Products.filter(item => item.category === "4");
       setProducts(FilteredProducts);
       console.log("Filtered Products:", FilteredProducts);
     } else if (category === "PIZZA") {
-      const FilteredProducts = Products.filter(item => item.category == "Pizza");
+      const FilteredProducts = Products.filter(item => item.category == "5");
       setProducts(FilteredProducts);
       console.log("Filtered Products:", FilteredProducts);
 
     } else if (category === "BREAD") {
-      const FilteredProducts = Products.filter(item => item.category === "Bread");
+      const FilteredProducts = Products.filter(item => item.category === "6");
       setProducts(FilteredProducts);
       console.log("Filtered Products:", FilteredProducts);
 
@@ -83,7 +83,7 @@ const Home = () => {
   }, [category]);
 
   useEffect(() => {
-    const FilteredProducts = Products.filter(item => item.category == "jewelery");
+    const FilteredProducts = Products.filter(item => item.category == "5");
     // const SlicePizza = FilteredProducts.slice(0, 4)
     SetHotPizza(FilteredProducts);
     console.log(FilteredProducts);

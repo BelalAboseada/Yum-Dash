@@ -4,6 +4,7 @@ import { fetchProductById } from "../services/api";
 import Helmet from "../components/Helmet/Helmet";
 import { Col, Container, Row } from "reactstrap";
 import Loader from "../components/Loader/Loader";
+import img from "../assets/images/product_01.3.jpg"
 
 const FoodDetails = () => {
   const { id } = useParams();
@@ -34,11 +35,12 @@ const FoodDetails = () => {
           ): (
             <Row>
             <Col lg="3" md="4" sm="6" xs="6">
-              <img src={product.image} width={200} height={200} />
+              {/* <img src={product.image} width={200} height={200} /> */}
+              <img src={img} width={200} height={200} />
             </Col>
             <Col lg="3" md="4" sm="6" xs="6">
-              <h3>{product.title}</h3>
-              <span>{product.price} $</span>
+              <h3>{product.item_name}</h3>
+              <span>{product.item_price} $</span>
               <button className="addTOCART__btn m-2">Add to Cart</button>
             </Col>
           </Row>

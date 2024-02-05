@@ -30,65 +30,61 @@ const initialState = {
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-
-  
   reducers: {
-    // =========== add item ============
-    addItem(state, action) {
-      const newItem = action.payload;
-      const id = action.payload.id;
-      const extraIngredients = action.payload.extraIngredients;
-      const existingItem = state.cartItems.find((item) => item.id === id);
+  // =========== add item ============
+  addItem(state, action) {
+    const newItem = action.payload;
+    const id = newItem.id;
+    const extraIngredients = newItem.extraIngredients;
+    const existingItem = state.cartItems.find((item) => item.id === id);
 
-      
-      if (!existingItem) {
-        state.cartItems.push({
-          id: newItem.id,
-          title: newItem.title,
-          image: newItem.image,
-          price: newItem.price,
-          quantity: 1,
-          totalPrice: newItem.price,
-          extraIngredients: newItem.extraIngredients
-        });
-        state.totalQuantity++;
-
-      } else if(existingItem && (JSON.stringify(existingItem.extraIngredients) === JSON.stringify(extraIngredients)))  {
-        state.totalQuantity++;
-        existingItem.quantity++;
-      } else {
-
-        const value = JSON.parse(localStorage.getItem("cartItems"));
-        let index = value.findIndex(s => s.id === existingItem.id);
-        const newValue = {
-        id: existingItem.id,
-        title: existingItem.title,
-        image: existingItem.image,
-        price: existingItem.price,
+    if (!existingItem) {
+      state.cartItems.push({
+        id: newItem.id,
+        title: newItem.item_name,
+        price: newItem.item_price,
         quantity: 1,
-        totalPrice: existingItem.price,
-        extraIngredients: extraIngredients
-      }
-        state.cartItems.splice(index, 1, newValue); 
-        state.totalQuantity = state.cartItems.reduce(
-          (total, item) => total + Number(item.quantity),
-          0
-        );
-      }
-     
-      state.totalAmount = state.cartItems.reduce(
-        (total, item) => total + Number(item.price) * Number(item.quantity),
+        totalPrice: newItem.item_price, 
+        extraIngredients: newItem.extraIngredients,
+      });
+      state.totalQuantity++;
+    } else if (
+      existingItem &&
+      JSON.stringify(existingItem.extraIngredients) ===
+        JSON.stringify(extraIngredients)
+    ) {
+      state.totalQuantity++;
+      existingItem.quantity++;
+      existingItem.totalPrice += existingItem.price; 
+    } else {
+      const index = state.cartItems.findIndex((item) => item.id === id);
+      const newValue = {
+        id: existingItem.id,
+        title: existingItem.item_name,
+        price: existingItem.item_price,
+        quantity: 1,
+        totalPrice: existingItem.item_price,
+        extraIngredients: extraIngredients,
+      };
+      state.cartItems.splice(index, 1, newValue);
+      state.totalQuantity = state.cartItems.reduce(
+        (total, item) => total + Number(item.quantity),
         0
       );
+    }
 
+    state.totalAmount = state.cartItems.reduce(
+      (total, item) => total + Number(item.totalPrice),
+      0
+    );
 
-      setItemFunc(
-        state.cartItems.map((item) => item),
-        state.totalAmount,
-        state.totalQuantity
-      );
-    },
-    
+    setItemFunc(
+      state.cartItems.map((item) => item),
+      state.totalAmount,
+      state.totalQuantity
+    );
+  },
+
     // ========= remove item ========
 
     removeItem(state, action) {
@@ -105,7 +101,8 @@ const cartSlice = createSlice({
       }
 
       state.totalAmount = state.cartItems.reduce(
-        (total, item) => total + Number(item.price) * Number(item.quantity),
+        (total, item) =>
+          total + Number(item.item_price) * Number(item.quantity),
         0
       );
 
@@ -128,7 +125,8 @@ const cartSlice = createSlice({
       }
 
       state.totalAmount = state.cartItems.reduce(
-        (total, item) => total + Number(item.price) * Number(item.quantity),
+        (total, item) =>
+          total + Number(item.item_price) * Number(item.quantity),
         0
       );
       setItemFunc(

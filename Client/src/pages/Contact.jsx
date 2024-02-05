@@ -90,7 +90,7 @@ const Contact = () => {
                                     <FaFacebookF />
                                 </a>
                                 <a
-                                    href="https://github.com/BelalAboSeda"
+                                    href="https://github.com/BelalAboSeada"
                                     className="contact_social_link"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -106,7 +106,7 @@ const Contact = () => {
                                     <FaLinkedinIn />
                                 </a>
                                 <a
-                                    href="https://wa.me/01060074246"
+                                    href="https://wa.me/+201060074246"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="contact_social_link"

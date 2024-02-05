@@ -15,9 +15,9 @@ const Cart = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const unsubscribe  =  onAuthStateChanged(auth, (user)=> {
-      setIsLoggedIn(!!user)
-    })
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user);
+    });
     return () => unsubscribe();
   }, []);
   return (
@@ -53,9 +53,11 @@ const Cart = () => {
                     <Link to="/foods">Continue Shopping</Link>
                   </button>
                   <button className="addTOCart__btn">
-                  {isLoggedIn ?  <Link to="/checkout">
-Proceed to checkout
-</Link> : <Link to="/SignIn">Proceed to checkout</Link> }
+                    {isLoggedIn ? (
+                      <Link to="/checkout">Proceed to checkout</Link>
+                    ) : (
+                      <Link to="/SignIn">Proceed to checkout</Link>
+                    )}
                   </button>
                 </div>
               </div>
@@ -90,4 +92,3 @@ const Tr = (props) => {
 };
 
 export default Cart;
-

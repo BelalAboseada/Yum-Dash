@@ -75,23 +75,21 @@ const Footer = () => {
             <div className="social__links d-flex align-items-center gap-4 justify-content-end">
               <p className="m-0">Follow: </p>
               <span>
-                {" "}
-                <Link to="https://www.facebook.com">
+                <Link to="https://www.facebook.com/belal.hesham.1848?mibextid=2JQ9oc">
                   <i className="ri-facebook-line"></i>
-                </Link>{" "}
+                </Link>
               </span>
 
               <span>
-                <Link to="https://github.com/BelalAboSeda">
+                <Link to="https://github.com/BelalAboSeada">
                   <i className="ri-github-line"></i>
                 </Link>
               </span>
 
               <span>
-                {" "}
-                <Link to="https://portfolio--belal.vercel.app/">
-                <i className="ri-user-line"></i>
-                </Link>{" "}
+                <Link to="https://belal-portfolio.vercel.app/">
+                  <i className="ri-user-line"></i>
+                </Link>
               </span>
 
               <span>
