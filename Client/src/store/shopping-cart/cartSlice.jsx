@@ -41,10 +41,10 @@ const cartSlice = createSlice({
     if (!existingItem) {
       state.cartItems.push({
         id: newItem.id,
-        title: newItem.item_name,
-        price: newItem.item_price,
+        title: newItem.title,
+        price: newItem.price,
         quantity: 1,
-        totalPrice: newItem.item_price, 
+        totalPrice: newItem.price, 
         extraIngredients: newItem.extraIngredients,
       });
       state.totalQuantity++;
@@ -60,10 +60,10 @@ const cartSlice = createSlice({
       const index = state.cartItems.findIndex((item) => item.id === id);
       const newValue = {
         id: existingItem.id,
-        title: existingItem.item_name,
-        price: existingItem.item_price,
+        title: existingItem.title,
+        price: existingItem.price,
         quantity: 1,
-        totalPrice: existingItem.item_price,
+        totalPrice: existingItem.price,
         extraIngredients: extraIngredients,
       };
       state.cartItems.splice(index, 1, newValue);
@@ -102,7 +102,7 @@ const cartSlice = createSlice({
 
       state.totalAmount = state.cartItems.reduce(
         (total, item) =>
-          total + Number(item.item_price) * Number(item.quantity),
+          total + Number(item.price) * Number(item.quantity),
         0
       );
 
@@ -126,7 +126,7 @@ const cartSlice = createSlice({
 
       state.totalAmount = state.cartItems.reduce(
         (total, item) =>
-          total + Number(item.item_price) * Number(item.quantity),
+          total + Number(item.price) * Number(item.quantity),
         0
       );
       setItemFunc(

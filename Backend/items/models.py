@@ -6,21 +6,22 @@ from django.utils.text import slugify
 
 class Items(models.Model):
     id = models.AutoField(primary_key=True)
-    item_name = models.CharField(max_length=100, unique=True)
-    item_description = models.TextField()
-    item_price = models.DecimalField(max_digits=5, decimal_places=2)
+    title = models.CharField(max_length=100, unique=True)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
     category = models.ForeignKey("Category", on_delete=models.PROTECT)
+    description = models.TextField()
+    image = models.ImageField(upload_to="images/", blank=True, null=True)
     slug = models.SlugField(null=True, blank=True, unique=True)
 
     class Meta:
-        ordering = ["item_name"]
+        ordering = ["title"]
         verbose_name_plural = "Items"
 
     def __str__(self):
-        return self.item_name
+        return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.item_name)
+        self.slug = slugify(self.title)
         super(Items, self).save(*args, **kwargs)
 
 
@@ -41,5 +42,4 @@ class Images(models.Model):
     class Meta:
         verbose_name_plural = "Images"
 
-    def __str__(self):
-        return self.item.item_name
+    

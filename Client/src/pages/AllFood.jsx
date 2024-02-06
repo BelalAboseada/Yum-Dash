@@ -40,17 +40,13 @@ const AllFood = () => {
   const sortedProducts = () => {
     switch (sortOption) {
       case "ascending":
-        return [...productData].sort((a, b) =>
-          a.item_name.localeCompare(b.item_name)
-        );
+        return [...productData].sort((a, b) => a.title.localeCompare(b.title));
       case "descending":
-        return [...productData].sort((a, b) =>
-          b.item_name.localeCompare(a.item_name)
-        );
+        return [...productData].sort((a, b) => b.title.localeCompare(a.title));
       case "high-price":
-        return [...productData].sort((a, b) => b.item_price - a.item_price);
+        return [...productData].sort((a, b) => b.price - a.price);
       case "low-price":
-        return [...productData].sort((a, b) => a.item_price - b.item_price);
+        return [...productData].sort((a, b) => a.price - b.price);
       default:
         return productData;
     }
@@ -109,8 +105,8 @@ const AllFood = () => {
             <>
               {displayPage
                 .filter((item) => {
-                  if (item.item_name) {
-                    return item.item_name
+                  if (item.title) {
+                    return item.title
                       .toLowerCase()
                       .includes(searchTerm.toLowerCase());
                   }
@@ -119,7 +115,7 @@ const AllFood = () => {
                   }
                   return false;
                 })
-                .map((item, images) => (
+                .map((item) => (
                   <Col
                     lg="3"
                     md="4"
@@ -128,7 +124,7 @@ const AllFood = () => {
                     key={item.id}
                     className="mb-4 mt-4"
                   >
-                    <ProductCard item={item} images={images} />
+                    <ProductCard item={item} />
                   </Col>
                 ))}
             </>
