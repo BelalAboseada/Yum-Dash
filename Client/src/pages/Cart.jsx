@@ -76,10 +76,11 @@ const Tr = (props) => {
   const deleteItem = () => {
     dispatch(cartActions.deleteItem(id));
   };
+
   return (
     <tr>
       <td className="text-center cart__img-box">
-        <img src={image} alt="" />
+        <img src={image} alt={title} />
       </td>
       <td className="text-center">{title}</td>
       <td className="text-center">${price}</td>
@@ -90,5 +91,6 @@ const Tr = (props) => {
     </tr>
   );
 };
+
 
 export default Cart;
