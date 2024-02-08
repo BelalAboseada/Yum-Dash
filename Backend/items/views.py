@@ -28,16 +28,6 @@ class ItemByCategory(ListAPIView):
         return Items.objects.filter(category__id=category_id)
 
 
-class AddImages(viewsets.ModelViewSet):
-    queryset = Images.objects.all()
-    serializer_class = ImageSerializer
 
 
-class FilterImagesByItemView(generics.ListAPIView):
-    serializer_class = ImageSerializer
 
-    def get_queryset(self):
-        item_id = self.kwargs["item_id"]
-        items = Images.objects.filter(item_id__id=item_id)
-
-        return items

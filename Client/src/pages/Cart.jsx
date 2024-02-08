@@ -20,6 +20,7 @@ const Cart = () => {
     });
     return () => unsubscribe();
   }, []);
+
   return (
     <Helmet title="Cart">
       <CommonSection title="Your Cart" />
@@ -79,18 +80,17 @@ const Tr = (props) => {
 
   return (
     <tr>
-      <td className="text-center cart__img-box">
+      {/* <td className="text-center cart__img-box">
         <img src={image} alt={title} />
-      </td>
+      </td> */}
       <td className="text-center">{title}</td>
       <td className="text-center">${price}</td>
-      <td className="text-center">{quantity}px</td>
+      <td className="text-center">{quantity}</td>
       <td className="text-center cart__item-del">
         <i className="ri-delete-bin-line" onClick={deleteItem}></i>
       </td>
     </tr>
   );
 };
-
 
 export default Cart;

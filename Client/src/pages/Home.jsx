@@ -54,7 +54,7 @@ const Home = () => {
 
   // Hot Pizza
   useEffect(() => {
-    const FilteredProducts = Products.filter((item) => item.category == "5");
+    const FilteredProducts = Products.filter((item) => item.category == "Pizza");
     const SlicePizza = FilteredProducts.slice(0, 4);
     SetHotPizza(SlicePizza);
     console.log(FilteredProducts);

@@ -1,31 +1,25 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  fetchCategory,
-  fetchProductById,
-  fetchProducts,
-} from "../services/api";
+import { fetchProductById, fetchProducts } from "../services/api";
 import Helmet from "../components/Helmet/Helmet";
 import { Col, Container, Row } from "reactstrap";
 import Loader from "../components/Loader/Loader";
-import ProductCard from "../components/UI/product-card/ProductCard"; 
 import { cartActions } from "../store/shopping-cart/cartSlice";
 import { useDispatch } from "react-redux";
-import "../styles/product-details.scss"
-
+import "../styles/product-details.scss";
+import ProductCard from "../components/UI/product-card/ProductCard";
 
 const FoodDetails = () => {
   const { id: productId } = useParams();
   const [product, setProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [categories, setCategories] = useState([]);
   const [addedToCart, setAddedToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [relatedProducts, setRelatedProducts] = useState([]);
 
   const dispatch = useDispatch();
 
-  // Fetch Product
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,7 +35,6 @@ const FoodDetails = () => {
     fetchData();
   }, [productId]);
 
-  // Fetch Products
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,30 +47,16 @@ const FoodDetails = () => {
     fetchData();
   }, []);
 
-  // Fetch categories
   useEffect(() => {
-    const fetchCategoriesData = async () => {
-      try {
-        const data = await fetchCategory();
-        setCategories(data);
-      } catch (err) {
-        console.error("Error fetching categories:", err);
-      }
-    };
-
-    fetchCategoriesData();
-  }, []);
-
-  // mapping the category id to its name for display in the UI
-  const categoryMap = categories.reduce((acc, cat) => {
-    acc[cat.id] = cat.category_name;
-    return acc;
-  }, {});
-
-  // Filter related products based on category
-  const relatedProducts = products.filter(
-    (item) => item.category_id === product?.category_id
-  );
+    if (product && products.length > 0) {
+      const related = products.filter(
+        (item) =>
+          item.category_id === product.category_id && item.id !== product.id
+      );
+      console.log("Related Products:", related);
+      setRelatedProducts(related);
+    }
+  }, [product, products]);
 
   const addToCart = () => {
     dispatch(
@@ -112,15 +91,27 @@ const FoodDetails = () => {
           ) : (
             <Row>
               <Col lg="4" md="5" sm="12" xs="12" className="text-center">
-                <img src={product.image} alt={product.title} width={300} height={300} />
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  width={300}
+                  height={300}
+                />
               </Col>
-              <Col lg="8" md="7" sm="12" xs="12" className="content"  style={{ paddingLeft: "50px" }}>
+              <Col
+                lg="8"
+                md="7"
+                sm="12"
+                xs="12"
+                className="content"
+                style={{ paddingLeft: "50px" }}
+              >
                 <h3 className="Title mb-3">{product.title}</h3>
                 <p className="Price">
                   <span className="price-num">Price: {product.price} $</span>
                 </p>
                 <p className="Category mb-1">
-                  Category: <span>{categoryMap[product.category_id]}</span>
+                  Category: <span>{product.category}</span>
                 </p>
                 <div className="m-2 mt-3 d-flex justify-content-center align-items-center increase__decrease-btn">
                   <span className="increase__btn" onClick={incrementItem}>

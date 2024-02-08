@@ -8,7 +8,8 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import FoodDetails from "../pages/FoodDetails";
 import Dashpord from"../pages/Dashpord";
-import Forgetpass from "../pages/forgetPass"
+import Forgetpass from "../pages/forgetPass";
+import PageNotFound from "../pages/PageNotFound"
 
 
 const Routers = () => {
@@ -25,6 +26,7 @@ const Routers = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/Dashpord" element={<Dashpord />} />
       <Route path="/ForotPassword" element={<Forgetpass />} />
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };

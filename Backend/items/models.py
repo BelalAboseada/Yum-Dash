@@ -8,7 +8,7 @@ class Items(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100, unique=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    category = models.ForeignKey("Category", on_delete=models.PROTECT)
+    category = models.ForeignKey("Category", related_name="category" ,on_delete=models.PROTECT)
     description = models.TextField()
     image = models.ImageField(upload_to="images/", blank=True, null=True)
     slug = models.SlugField(null=True, blank=True, unique=True)
@@ -35,11 +35,6 @@ class Category(models.Model):
         return self.category_name
 
 
-class Images(models.Model):
-    image = models.ImageField(upload_to="images/")
-    item = models.ForeignKey(Items, related_name="images", on_delete=models.CASCADE)
 
-    class Meta:
-        verbose_name_plural = "Images"
 
     

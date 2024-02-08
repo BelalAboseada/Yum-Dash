@@ -3,18 +3,18 @@ from .models import *
 
 
 class ItemsSerializer(serializers.ModelSerializer):
+    
+    category = serializers.StringRelatedField(source='category.category_name', read_only=True)
     class Meta:
         model = Items
-        exclude = ["slug"]
+        # exclude = ["slug"]
+        fields = ["id",'title','price','description','category','image']
 
-
+        
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         exclude = ["id"]
 
 
-class ImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Images
-        exclude = ["id"]
+
