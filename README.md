@@ -31,9 +31,11 @@ npm install
 ````
  to install all required dependencies
 4. Create a `.env` file in the root folder and copy the contents of `.env.`
+
 5. In the `.env` file replace `<your-secret>` with any random string. This
 secret is used as the JWT encryption key.
-6. To start the server run 
+
+7. To start the server run 
 ```
 npm run dev
 ```
