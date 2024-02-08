@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-x9kyy$4^xkb%0aaz2%lfac5h_1lf9jza@1_k4-89i_06#!)e+l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://yum-dash.vercel.app/"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -47,7 +47,7 @@ CORS_ALLOW_ALL_ORIGINS = False  # For development only
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
-    "http://127.0.0.1:8000"
+    "http://127.0.0.1:8000",
 ]
 
 MIDDLEWARE = [
