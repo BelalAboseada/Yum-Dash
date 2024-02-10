@@ -1,2 +1,0 @@
-# Restaurant-application
-Restaurant application
