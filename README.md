@@ -43,3 +43,29 @@ The app should now be running on http://localhost:8000/. Any changes made to
 the files will automatically refresh the page in the browser.
 
 You can look for Backend Code Here ("https://github.com/Es1amMohamed/Restaurant-application/tree/main")
+
+
+
+
+   // "@reduxjs/toolkit": "^1.6.2",
+    // "axios": "^1.6.2",
+    // "bootstrap": "^5.1.3",
+    // "firebase": "^10.7.1",
+    // "immer": "^9.0.12",
+    // "react": "^17.0.2",
+    // "react-dom": "^17.0.2",
+    // "react-icons": "^4.8.0",
+    // "react-paginate": "^8.1.4",
+    // "react-redux": "^7.2.6",
+    // "react-router-dom": "^6.2.1",
+    // "react-scripts": "4.0.3",
+    // "react-slick": "^0.29.0",
+    // "react-useanimations": "^2.10.0",
+    // "reactstrap": "^9.0.1",
+    // "redux-logger": "^3.0.6",
+    // "remixicon": "^2.5.0",
+    // "sass": "^1.69.5",
+    // "slick-carousel": "^1.8.1",
+    // "stripe": "^14.15.0",
+    // "web-vitals": "^1.1.2",
+    // "yup": "^1.3.3"
