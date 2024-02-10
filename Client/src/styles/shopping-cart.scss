@@ -66,18 +66,17 @@
   }
 }
 
-.cart__closeButton {
+.Close_Btn {
   width: fit-content;
   height: 60px;
-  padding: 10px 20px;
-  position: absolute;
+  padding: 10px 20px;   
   top: 0.5rem;
   right: 0rem;
   margin: 0.5rem 0;
-  display: none;
+  display: block;
 }
 
-.cart__closeButton span i {
+.Close_Btn span i {
   font-size: 1.1rem;
   background: #212245;
   padding: 5px;

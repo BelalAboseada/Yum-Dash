@@ -4,7 +4,7 @@ import { AiFillCheckCircle } from "react-icons/ai";
 const Checkout = () => {
   return (
     <>
-      <div className="checkoutMessage">
+      <div className="checkoutMessage text-center ">
         <div className="checkoutTitleContainer">
           <AiFillCheckCircle className="checkoutIcon" />
           <h3>Thank you for your order!</h3>

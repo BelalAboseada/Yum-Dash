@@ -54,7 +54,7 @@ const Dashboard = () => {
             )}
 
             <h2 className="m-3">Hello, {userName}!</h2>
-            <Button className="SignOutBtn" onClick={SignOut}>Sign out</Button>
+            <Button className="SignOutBtn mb-2" onClick={SignOut}>Sign out</Button>
           </div>
         ) : (
           <Loader />

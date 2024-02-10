@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartSlice from "./shopping-cart/cartSlice";
 import cartUiSlice from "./shopping-cart/cartUiSlice";
-// import favSlice from "./FavSlice"
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 

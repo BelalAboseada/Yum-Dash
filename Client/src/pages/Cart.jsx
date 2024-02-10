@@ -71,7 +71,7 @@ const Cart = () => {
 };
 
 const Tr = (props) => {
-  const { id, image, title, price, quantity } = props.item;
+  const { id,  title, price, quantity } = props.item;
   const dispatch = useDispatch();
 
   const deleteItem = () => {

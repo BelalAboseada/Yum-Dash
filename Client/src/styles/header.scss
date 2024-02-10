@@ -71,21 +71,19 @@
 .cart__icon {
   position: relative;
 }
-// .Fav__icon{
-//   position: relative;
-// }
+
 
 .cart_badge {
   position: absolute;
-  top: 30px;
+  top: 25px;
   right: -10px;
   background: var(--primary);
   color: #fff;
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.7rem;
+  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -198,9 +196,7 @@
   }
 }
 
-// @media only screen and (max-width: 480px) {
-  
-// }
+
 
 .close__button {
   width: fit-content;

@@ -15,7 +15,6 @@ const FoodDetails = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [addedToCart, setAddedToCart] = useState(false);
-  const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   const dispatch = useDispatch();
@@ -66,21 +65,11 @@ const FoodDetails = () => {
         image: product.image,
         price: product.price,
         extraIngredients: product.extraIngredients,
-        quantity: quantity,
       })
     );
     setAddedToCart(true);
   };
 
-  const incrementItem = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const decreaseItem = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
 
   return (
     <Helmet title="Product-details">
@@ -113,17 +102,9 @@ const FoodDetails = () => {
                 <p className="Category mb-1">
                   Category: <span>{product.category}</span>
                 </p>
-                <div className="m-2 mt-3 d-flex justify-content-center align-items-center increase__decrease-btn">
-                  <span className="increase__btn" onClick={incrementItem}>
-                    <i className="ri-add-line"></i>
-                  </span>
-                  <span className="quantity">{quantity}</span>
-                  <span className="decrease__btn" onClick={decreaseItem}>
-                    <i className="ri-subtract-line"></i>
-                  </span>
-                </div>
+              
                 <button
-                  className="addTOCART__btn m-2"
+                  className="addTOCART__btn m-2 mt-4"
                   onClick={addToCart}
                   disabled={addedToCart}
                 >

@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-x9kyy$4^xkb%0aaz2%lfac5h_1lf9jza@1_k4-89i_06#!)e+l"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,14 +47,6 @@ INSTALLED_APPS = [
     ## my apps
     "items",
     "rest_framework",
-    'corsheaders',
-]
-
-CORS_ALLOW_ALL_ORIGINS = False  # For development only
-
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-    "http://127.0.0.1:8000",
 ]
 
 MIDDLEWARE = [
@@ -58,7 +57,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-     'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "project.urls"
@@ -85,10 +83,27 @@ WSGI_APPLICATION = "project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+"""
+
+this is for postgres database
+from railway.app
+
+"""
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("NAME"),
+        "USER": os.environ.get("USER"),
+        "PASSWORD": os.environ.get("PASSWORD"),
+        "HOST": "roundhouse.proxy.rlwy.net",
+        "PORT": "45664",
     }
 }
 
@@ -130,10 +145,13 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "staticfiles",
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 

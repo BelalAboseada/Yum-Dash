@@ -33,7 +33,6 @@ const Header = () => {
   const menuRef = useRef(null);
   const headerRef = useRef(null);
   const totalQuantityCart = useSelector((state) => state.cart.totalQuantity);
-  // const totalQuantityFav = useSelector((state) => state.Fav.totalQuantity);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
