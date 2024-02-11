@@ -24,7 +24,6 @@
     "react-useanimations": "^2.10.0",
     "reactstrap": "^9.2.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^3.0.0",
     "remixicon": "^4.1.0",
     "sass": "^1.42.1",
     "slick-carousel": "^1.8.1",

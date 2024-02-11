@@ -1,6 +1,6 @@
 import axios from "axios";
 // Api url
-const ApiUrl = "http://127.0.0.1:8000";
+const ApiUrl = "https://api-mao7.onrender.com";
 
 // Fetch All Products
 export const fetchProducts = async () => {
