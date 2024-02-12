@@ -11,7 +11,7 @@ import {
   CardBody,
   FormFeedback,
 } from "reactstrap";
-import signIn from "../assets/images/Mobile login-pana.svg";
+import signIn from "../media/images/Mobile login-pana.svg";
 import Helmet from "../components/Helmet/Helmet";
 import "../styles/SignIn.scss";
 import { Link, useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import Googleimg from "../assets/images/google.png";
+import Googleimg from "../media/images/google.png";
 import { doc, setDoc } from "firebase/firestore";
 import { db, storage } from "../Firebase/firebase.config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";

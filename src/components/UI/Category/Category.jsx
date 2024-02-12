@@ -1,8 +1,8 @@
 import { Container, Row, Col } from "reactstrap";
-import CatImg1 from "../../../assets/images/category-01.png";
-import CatImg2 from "../../../assets/images/category-02.png";
-import CatImg3 from "../../../assets/images/category-03.png";
-import CatImg4 from "../../../assets/images/category-04.png";
+import CatImg1 from "../../../media/images/category-01.png";
+import CatImg2 from "../../../media/images/category-02.png";
+import CatImg3 from "../../../media/images/category-03.png";
+import CatImg4 from "../../../media/images/category-04.png";
 import "../../../styles/Category.scss"
 
 

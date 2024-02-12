@@ -1,8 +1,8 @@
 import Slider from "react-slick";
-import avatar1 from "../../../assets/images/ava-1.jpg";
-import avatar2 from "../../../assets/images/ava-2.jpg";
-import avatar3 from "../../../assets/images/ava-3.jpg";
-import avatar4 from "../../../assets/images/ava-4.jpg";
+import avatar1 from "../../../media/images/ava-1.jpg";
+import avatar2 from "../../../media/images/ava-2.jpg";
+import avatar3 from "../../../media/images/ava-3.jpg";
+import avatar4 from "../../../media/images/ava-4.jpg";
 import "../../../styles/TestimonialSlider.scss";
 
 const Testimonial = [

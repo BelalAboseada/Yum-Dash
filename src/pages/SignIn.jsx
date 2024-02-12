@@ -18,9 +18,9 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../Firebase/firebase.config";
-import Googleimg from "../assets/images/google.png";
+import Googleimg from "../media/images/google.png";
 import Loader from "../components/Loader/Loader";
-import signIn from "../assets/images/Mobile login-pana.svg";
+import signIn from "../media/images/Mobile login-pana.svg";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");

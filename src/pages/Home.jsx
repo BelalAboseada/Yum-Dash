@@ -1,17 +1,17 @@
 import Helmet from "../components/Helmet/Helmet.jsx";
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
-import guyImg from "../assets/images/hero.png";
+import guyImg from "../media/images/hero.png";
 import "../styles/hero-section.scss";
 import "../styles/Home.scss";
 import Category from "../components/UI/Category/Category.jsx";
-import featureImg1 from "../assets/images/service-01.png";
-import featureImg2 from "../assets/images/service-02.png";
-import featureImg3 from "../assets/images/service-03.png";
+import featureImg1 from "../media/images/service-01.png";
+import featureImg2 from "../media/images/service-02.png";
+import featureImg3 from "../media/images/service-03.png";
 import ProductCard from "../components/UI/product-card/ProductCard.jsx";
 import { useEffect, useState } from "react";
-import whyImg from "../assets/images/location.png";
-import TestimonialImg from "../assets/images/network.png";
+import whyImg from "../media/images/location.png";
+import TestimonialImg from "../media/images/network.png";
 import TestimonialSlider from "../components/UI/Slider/TestimonialSlider.jsx";
 import { fetchProducts } from "../services/api.js";
 const FeatureData = [

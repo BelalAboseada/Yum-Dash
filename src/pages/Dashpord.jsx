@@ -4,7 +4,7 @@ import Loader from "../components/Loader/Loader";
 import Helmet from "../components/Helmet/Helmet";
 import { Button, Container } from "reactstrap";
 import "../styles/Dashpord.scss"
-import userImg from "../assets/images/usericonimg.png";
+import userImg from "../media/images/usericonimg.png";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
