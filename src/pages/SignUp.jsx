@@ -17,12 +17,12 @@ import "../styles/SignIn.scss";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
+  // GoogleAuthProvider,
+  // signInWithPopup,
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import Googleimg from "../media/images/google.png";
+// import Googleimg from "../media/images/google.png";
 import { doc, setDoc } from "firebase/firestore";
 import { db, storage } from "../Firebase/firebase.config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -38,36 +38,36 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const auth = getAuth();
-  const googleProvider = new GoogleAuthProvider();
+  // const googleProvider = new GoogleAuthProvider();
 
-  const signInWithGoogle = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
+  // const signInWithGoogle = async () => {
+  //   try {
+  //     const result = await signInWithPopup(auth, googleProvider);
+  //     const user = result.user;
 
-      // Update user profile
-      await updateProfile(user, {
-        displayName: user.displayName || "New User",
-        photoURL: user.photoURL || null,
-      });
+  //     // Update user profile
+  //     await updateProfile(user, {
+  //       displayName: user.displayName || "New User",
+  //       photoURL: user.photoURL || null,
+  //     });
 
-      const { displayName, email, photoURL, uid } = user;
+  //     const { displayName, email, photoURL, uid } = user;
 
-      // Store user data in Firestore
-      await setDoc(doc(db, "users", uid), {
-        uid,
-        displayName,
-        email,
-        photoURL,
-        createdAt: Date.now(),
-      });
+  //     // Store user data in Firestore
+  //     await setDoc(doc(db, "users", uid), {
+  //       uid,
+  //       displayName,
+  //       email,
+  //       photoURL,
+  //       createdAt: Date.now(),
+  //     });
 
-      console.log("User signed in with Google", user);
-      navigate("/SignIn");
-    } catch (error) {
-      console.error("Google Sign-In Error", error.message);
-    }
-  };
+  //     console.log("User signed in with Google", user);
+  //     navigate("/SignIn");
+  //   } catch (error) {
+  //     console.error("Google Sign-In Error", error.message);
+  //   }
+  // };
 
   const signUp = async (e) => {
     e.preventDefault();
@@ -212,8 +212,8 @@ const SignUp = () => {
                       </form>
 
                       <div className="text-center">
-                        <p className="m-2">or</p>
-                        <Button
+                        {/* <p className="m-2">or</p> */}
+                        {/* <Button
                           onClick={signInWithGoogle}
                           className="GoogleSignInBtn"
                           disabled={loading}
@@ -225,7 +225,7 @@ const SignUp = () => {
                             loading="lazy"
                           />
                           Sign Up with Google
-                        </Button>
+                        </Button> */}
                       </div>
                     </CardBody>
                   </Card>
