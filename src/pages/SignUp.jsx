@@ -1,4 +1,4 @@
-import { useState } from "react";
+import  { useState } from "react";
 import {
   Button,
   FormGroup,
@@ -17,10 +17,10 @@ import "../styles/SignIn.scss";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
   GoogleAuthProvider,
   signInWithPopup,
+  createUserWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import Googleimg from "../media/images/google.png";
 import { doc, setDoc } from "firebase/firestore";
@@ -38,6 +38,36 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const auth = getAuth();
+  const googleProvider = new GoogleAuthProvider();
+
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+
+      // Update user profile
+      await updateProfile(user, {
+        displayName: user.displayName || "New User",
+        photoURL: user.photoURL || null,
+      });
+
+      const { displayName, email, photoURL, uid } = user;
+
+      // Store user data in Firestore
+      await setDoc(doc(db, "users", uid), {
+        uid,
+        displayName,
+        email,
+        photoURL,
+        createdAt: Date.now(),
+      });
+
+      console.log("User signed in with Google", user);
+      navigate("/SignIn");
+    } catch (error) {
+      console.error("Google Sign-In Error", error.message);
+    }
+  };
 
   const signUp = async (e) => {
     e.preventDefault();
@@ -100,21 +130,6 @@ const SignUp = () => {
     } catch (authError) {
       setLoading(false);
       setError(authError.message);
-    }
-  };
-
-  const signUpWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      setLoading(true);
-      const userCredential = await signInWithPopup(auth, provider);
-      const user = userCredential.user;
-      // Additional logic after successful sign-up with Google
-      setLoading(false);
-      navigate("/SignIn");
-    } catch (error) {
-      setLoading(false);
-      setError(error.message);
     }
   };
 
@@ -199,7 +214,7 @@ const SignUp = () => {
                       <div className="text-center">
                         <p className="m-2">or</p>
                         <Button
-                          onClick={signUpWithGoogle}
+                          onClick={signInWithGoogle}
                           className="GoogleSignInBtn"
                           disabled={loading}
                         >
