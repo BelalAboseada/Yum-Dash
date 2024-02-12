@@ -1,4 +1,4 @@
-import { lazy, useState } from "react";
+import  { useState } from "react";
 import {
   Button,
   FormGroup,
@@ -222,7 +222,7 @@ const SignUp = () => {
                             src={Googleimg}
                             alt="Googleimg"
                             className="Googleimg"
-                            loading={lazy}
+                            loading="lazy"
                           />
                           Sign Up with Google
                         </Button>
