@@ -14,13 +14,13 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import {
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
+  // GoogleAuthProvider,
+  // signInWithPopup,
   setPersistence,
   browserSessionPersistence,
 } from "firebase/auth";
 import { auth } from "../Firebase/firebase.config";
-import Googleimg from "../assets/images/google.png";
+// import Googleimg from "../assets/images/google.png";
 import Loader from "../components/Loader/Loader";
 import signIn from "../assets/images/Mobile login-pana.svg";
 
@@ -71,17 +71,17 @@ const SignIn = () => {
     }
   };
 
-  const signInWithGoogle = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log("User signed in with Google", user);
-      navigate("/");
-    } catch (error) {
-      console.error("Google Sign-In Error", error.message);
-    }
-  };
+  // const signInWithGoogle = async () => {
+  //   try {
+  //     const provider = new GoogleAuthProvider();
+  //     const result = await signInWithPopup(auth, provider);
+  //     const user = result.user;
+  //     console.log("User signed in with Google", user);
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.error("Google Sign-In Error", error.message);
+  //   }
+  // };
 
   return (
     <Container>
@@ -143,7 +143,7 @@ const SignIn = () => {
                   <div className="text-center m-1">
                     <Link to="/ForotPassword">Forget Password?</Link>
                     <p className="m-1">or</p>
-                    <Button
+                    {/* <Button
                       onClick={signInWithGoogle}
                       className="GoogleSignInBtn"
                       disabled={loading}
@@ -154,7 +154,7 @@ const SignIn = () => {
                         className="Googleimg"
                       />
                       Sign In with Google
-                    </Button>
+                    </Button> */}
                   </div>
                 </CardBody>
               </Card>
