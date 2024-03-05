@@ -17,8 +17,6 @@
 - Firebase
 - Axios
 - sass 
-- Django REST Framework 
-- SQl Lite
 
 ## Installation & Usage Instructions:
 To run this project locally on your machine you will need Node.js installed along with npm package manager
@@ -41,5 +39,8 @@ npm run dev
 The app should now be running on http://localhost:8000/. Any changes made to
 the files will automatically refresh the page in the browser.
 
+<<<<<<< HEAD
 -You can look for Backend Code Here (https://github.com/Es1amMohamed/Restaurant-application/tree/main)
 
+=======
+>>>>>>> 80158123955d6ed83ae6a3b7b5f529e01771e850
