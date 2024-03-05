@@ -1,57 +1,45 @@
-import { useEffect, useState } from "react";
-import { Container, Row, Col } from "reactstrap";
-import ProductCard from "../components/UI/product-card/ProductCard";
+import { useState } from "react";
 import Helmet from "../components/Helmet/Helmet";
-import ReactPaginate from "react-paginate";
-import "../styles/pagination.scss";
-import { fetchProducts } from "../services/api";
-import Loader from "../components/Loader/Loader";
-import "../styles/AllFood.scss";
 import CommonSection from "../components/UI/common-section/CommonSection";
 
-const AllFood = () => {
-  const [products, setProducts] = useState([]);
-  const [productData, setProductData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [pageNumber, setPageNumber] = useState(0);
+import { Container, Row, Col } from "reactstrap";
+
+import products from "../assets/data/data";
+import ProductCard from "../components/UI/product-card/ProductCard";
+import ReactPaginate from "react-paginate";
+
+import "../styles/AllFood.scss";
+import "../styles/pagination.scss";
+
+const AllFoods = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("default");
-  const productPerPage = 8;
+  const [pageNumber, setPageNumber] = useState(0);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchProducts();
-        setProducts(data);
-        setProductData(data);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching products:", err);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const visitedPage = pageNumber * productPerPage;
+  // Apply search filter
+  const searchedProduct = products.filter((item) => {
+    if (!searchTerm) return true; // If no search term, return all products
+    return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   // Apply sorting logic
   const sortedProducts = () => {
     switch (sortOption) {
       case "ascending":
-        return [...productData].sort((a, b) => a.title.localeCompare(b.title));
+        return [...searchedProduct].sort((a, b) => a.title.localeCompare(b.title));
       case "descending":
-        return [...productData].sort((a, b) => b.title.localeCompare(a.title));
+        return [...searchedProduct].sort((a, b) => b.title.localeCompare(a.title));
       case "high-price":
-        return [...productData].sort((a, b) => b.price - a.price);
+        return [...searchedProduct].sort((a, b) => b.price - a.price);
       case "low-price":
-        return [...productData].sort((a, b) => a.price - b.price);
+        return [...searchedProduct].sort((a, b) => a.price - b.price);
       default:
-        return productData;
+        return searchedProduct;
     }
   };
 
+  const productPerPage = 12;
+  const visitedPage = pageNumber * productPerPage;
   const displayPage = sortedProducts().slice(
     visitedPage,
     visitedPage + productPerPage
@@ -64,84 +52,56 @@ const AllFood = () => {
   };
 
   return (
-    <Helmet title="All Pizzas">
-      <CommonSection title="All Food" />
-      <Container>
-        <Row>
-          <Col lg="6" md="6" sm="6" className=" mt-4">
-            <div className="Search d-flex justify-content-between align-items-center ">
-              <input
-                type="text"
-                className="search_input"
-                placeholder="I am looking for..."
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                }}
-              />
-              <i className="ri-search-line"></i>
-            </div>
-          </Col>
-          <Col lg="6" md="6" sm="6" className="mb-5 mt-4">
-            <div className="Sort text-end">
-              <select
-                value={sortOption}
-                onChange={(e) => {
-                  setSortOption(e.target.value);
-                }}
-              >
-                <option value="default">Default</option>
-                <option value="ascending">Alphabetically, A-Z</option>
-                <option value="descending">Alphabetically, Z-A</option>
-                <option value="high-price">High Price</option>
-                <option value="low-price">Low Price</option>
-              </select>
-            </div>
-          </Col>
+    <Helmet title="All-Foods">
+      <CommonSection title="All Foods" />
+      <section>
+        <Container>
+          <Row>
+            <Col lg="6" md="6" sm="6" xs="12">
+              <div className="Search d-flex align-items-center justify-content-between">
+                <input
+                  type="text"
+                  placeholder="I'm looking for...."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <span>
+                  <i className="ri-search-line"></i>
+                </span>
+              </div>
+            </Col>
+            <Col lg="6" md="6" sm="6" xs="12" className="mb-5">
+              <div className="Sort text-end">
+                <select className="w-50" onChange={(e) => setSortOption(e.target.value)}>
+                  <option value="default">Default</option>
+                  <option value="ascending">Alphabetically, A-Z</option>
+                  <option value="descending">Alphabetically, Z-A</option>
+                  <option value="high-price">High Price</option>
+                  <option value="low-price">Low Price</option>
+                </select>
+              </div>
+            </Col>
 
-          {loading ? (
-            <Loader />
-          ) : (
-            <>
-              {displayPage
-                .filter((item) => {
-                  if (item.title) {
-                    return item.title
-                      .toLowerCase()
-                      .includes(searchTerm.toLowerCase());
-                  }
-                  if (searchTerm === "") {
-                    return item;
-                  }
-                  return false;
-                })
-                .map((item) => (
-                  <Col
-                    lg="3"
-                    md="4"
-                    sm="6"
-                    xs="6"
-                    key={item.id}
-                    className="mb-4 mt-4"
-                  >
-                    <ProductCard item={item} />
-                  </Col>
-                ))}
-            </>
-          )}
-        </Row>
-        <div className="d-flex justify-content-center mt-4 mb-4">
-          <ReactPaginate
-            pageCount={pageCount}
-            onPageChange={changePage}
-            previousLabel={"Prev"}
-            nextLabel={"Next"}
-            containerClassName="paginationBtn"
-          />
-        </div>
-      </Container>
+            {displayPage.map((item) => (
+              <Col lg="3" md="4" sm="6" xs="6" key={item.id} className="mb-4">
+                <ProductCard item={item} />
+              </Col>
+            ))}
+
+            <div>
+              <ReactPaginate
+                pageCount={pageCount}
+                onPageChange={changePage}
+                previousLabel={"Prev"}
+                nextLabel={"Next"}
+                containerClassName="paginationBtn"
+              />
+            </div>
+          </Row>
+        </Container>
+      </section>
     </Helmet>
   );
 };
 
-export default AllFood;
+export default AllFoods;

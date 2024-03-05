@@ -1,135 +1,203 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+
+import products from "../assets/data/data";
 import { useParams } from "react-router-dom";
-import { fetchProductById, fetchProducts } from "../services/api";
 import Helmet from "../components/Helmet/Helmet";
-import { Col, Container, Row } from "reactstrap";
-import Loader from "../components/Loader/Loader";
-import { cartActions } from "../store/shopping-cart/cartSlice";
+import CommonSection from "../components/UI/common-section/CommonSection";
+import { Container, Row, Col } from "reactstrap";
+
 import { useDispatch } from "react-redux";
+import { cartActions } from "../store/shopping-cart/cartSlice";
+
 import "../styles/product-details.scss";
+
 import ProductCard from "../components/UI/product-card/ProductCard";
 
 const FoodDetails = () => {
-  const { id: productId } = useParams();
-  const [product, setProduct] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [addedToCart, setAddedToCart] = useState(false);
-  const [relatedProducts, setRelatedProducts] = useState([]);
-
+  const [tab, setTab] = useState("desc");
+  const [enteredName, setEnteredName] = useState("");
+  const [enteredEmail, setEnteredEmail] = useState("");
+  const [reviewMsg, setReviewMsg] = useState("");
+  const { id } = useParams();
   const dispatch = useDispatch();
+  const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchProductById(productId);
-        setProduct(data);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching product details:", err);
-        setLoading(false);
-      }
+  const submitHandler = (e) => {
+    e.preventDefault();
+    // Create a new comment object with the input values
+    const newComment = {
+      name: enteredName,
+      email: enteredEmail,
+      message: reviewMsg,
     };
-
-    fetchData();
-  }, [productId]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchProducts();
-        setProducts(data);
-      } catch (err) {
-        console.error("Error fetching products:", err);
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (product && products.length > 0) {
-      const related = products.filter(
-        (item) =>
-          item.category_id === product.category_id && item.id !== product.id
-      );
-      console.log("Related Products:", related);
-      setRelatedProducts(related);
-    }
-  }, [product, products]);
-
-  const addToCart = () => {
-    dispatch(
-      cartActions.addItem({
-        id: product.id,
-        title: product.title,
-        image: product.image,
-        price: product.price,
-        extraIngredients: product.extraIngredients,
-      })
-    );
-    setAddedToCart(true);
+    setComments([...comments, newComment]);
+    // Reset the input fields
+    setEnteredName("");
+    setEnteredEmail("");
+    setReviewMsg("");
   };
 
+  const product = products.find((product) => product.id === id);
+  const [previewImg, setPreviewImg] = useState(product.image01);
+  const { title, price, category, desc, image01 } = product;
+
+  const relatedProduct = products.filter((item) => category === item.category);
+
+  const addItem = () => {
+    dispatch(
+      cartActions.addItem({
+        id,
+        title,
+        price,
+        image01,
+      })
+    );
+  };
+
+  useEffect(() => {
+    setPreviewImg(product.image01);
+  }, [product]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [product]);
 
   return (
     <Helmet title="Product-details">
+      <CommonSection title={title} />
+
       <section>
         <Container>
-          {loading ? (
-            <Loader />
-          ) : (
-            <Row>
-              <Col lg="4" md="5" sm="12" xs="12" className="text-center">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  width={300}
-                  height={300}
-                />
-              </Col>
-              <Col
-                lg="8"
-                md="7"
-                sm="12"
-                xs="12"
-                className="content"
-                style={{ paddingLeft: "50px" }}
-              >
-                <h3 className="Title mb-3">{product.title}</h3>
-                <p className="Price">
-                  <span className="price-num">Price: {product.price} $</span>
-                </p>
-                <p className="Category mb-1">
-                  Category: <span>{product.category}</span>
-                </p>
-              
-                <button
-                  className="addTOCART__btn m-2 mt-4"
-                  onClick={addToCart}
-                  disabled={addedToCart}
+          <Row>
+            <Col lg="2" md="2">
+              <div className="product__images">
+                <div
+                  className="img__item mb-3"
+                  onClick={() => setPreviewImg(product.image01)}
                 >
-                  {addedToCart ? "Added" : "Add to Cart"}
-                </button>
-              </Col>
-
-              <Col lg="12" className="mt-5">
-                <h6 className="description">Description</h6>
-                <div className="description__content">
-                  <p>{product.description}</p>
+                  <img src={product.image01} alt={title} />
                 </div>
-              </Col>
+                <div
+                  className="img__item mb-3"
+                  onClick={() => setPreviewImg(product.image02)}
+                >
+                  <img src={product.image02} alt={title} />
+                </div>
 
-              <Col lg="12" className="mb-5 mt-4">
-                <h2 className="related__Product-title">You might also like</h2>
-              </Col>
+                <div
+                  className="img__item"
+                  onClick={() => setPreviewImg(product.image03)}
+                >
+                  <img src={product.image03} alt={title} />
+                </div>
+              </div>
+            </Col>
 
-              {relatedProducts.slice(0, 4).map((item) => (
-                <Col lg="3" md="4" sm="6" xs="6" className="mb-4" key={item.id}>
-                  <ProductCard item={item} />
-                </Col>
-              ))}
-            </Row>
-          )}
+            <Col lg="4" md="4">
+              <div className="product__main-img">
+                <img src={previewImg} alt="" className="w-100" />
+              </div>
+            </Col>
+
+            <Col lg="6" md="6">
+              <div className="single__product-content">
+                <h2 className="product__title mb-3">{title}</h2>
+                <p className="product__price">
+                  Price: <span>${price}</span>
+                </p>
+                <p className="category mb-5">
+                  Category: <span>{category}</span>
+                </p>
+
+                <button onClick={addItem} className="addTOCart__btn">
+                  Add to Cart
+                </button>
+              </div>
+            </Col>
+
+            <Col lg="12">
+              <div className="tabs d-flex align-items-center gap-5 py-3">
+                <h6
+                  className={` ${tab === "desc" ? "tab__active" : ""}`}
+                  onClick={() => setTab("desc")}
+                >
+                  Description
+                </h6>
+                <h6
+                  className={` ${tab === "rev" ? "tab__active" : ""}`}
+                  onClick={() => setTab("rev")}
+                >
+                  Review
+                </h6>
+              </div>
+
+              {tab === "desc" ? (
+                <div className="tab__content">
+                  <p>{desc}</p>
+                </div>
+              ) : (
+                <>
+                  <div className="tab__form  mb-3 d-flex justify-content-center align-items-center">
+                    <div className="review d-grid p-2 m-3">
+                      {comments.map((comment, index) => (
+                        <div key={index} className="review_box">
+                          <p className="user__name mb-0">{comment.name}</p>
+                          <p className="user__email">{comment.email}</p>
+                          <p className="feedback__text">{comment.message}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <form
+                    className="form text-center p-5"
+                    onSubmit={submitHandler}
+                  >
+                    <h3 className="form_title m-2 ">Add Your Comment</h3>
+                    <div className="form__group p-2">
+                      <input
+                        type="text"
+                        placeholder="Enter your name"
+                        value={enteredName}
+                        onChange={(e) => setEnteredName(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="form__group  p-2">
+                      <input
+                        type="email"
+                        placeholder="Enter your email"
+                        value={enteredEmail}
+                        onChange={(e) => setEnteredEmail(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="form__group  p-2">
+                      <textarea
+                        rows={5}
+                        placeholder="Write your review"
+                        value={reviewMsg}
+                        onChange={(e) => setReviewMsg(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <button type="submit" className="addTOCart__btn">
+                      Submit
+                    </button>
+                  </form>
+                </>
+              )}
+            </Col>
+
+            <Col lg="12" className="mb-5 mt-4">
+              <h2 className="related__Product-title">You might also like</h2>
+            </Col>
+
+            {relatedProduct.map((item) => (
+              <Col lg="3" md="4" sm="6" xs="6" className="mb-4" key={item.id}>
+                <ProductCard item={item} />
+              </Col>
+            ))}
+          </Row>
         </Container>
       </section>
     </Helmet>

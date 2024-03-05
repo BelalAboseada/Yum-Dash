@@ -10,7 +10,7 @@ import {
   CardBody,
   FormFeedback,
 } from "reactstrap";
-import signIn from "../media/images/Mobile login-pana.svg";
+import signIn from "../assets/images/Mobile login-pana.svg";
 import Helmet from "../components/Helmet/Helmet";
 import "../styles/SignIn.scss";
 import { Link } from "react-router-dom";

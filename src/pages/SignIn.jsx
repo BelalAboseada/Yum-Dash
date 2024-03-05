@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   FormGroup,
@@ -16,11 +16,13 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  setPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 import { auth } from "../Firebase/firebase.config";
-import Googleimg from "../media/images/google.png";
+import Googleimg from "../assets/images/google.png";
 import Loader from "../components/Loader/Loader";
-import signIn from "../media/images/Mobile login-pana.svg";
+import signIn from "../assets/images/Mobile login-pana.svg";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +31,19 @@ const SignIn = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const SignIn = async (e) => {
+  useEffect(() => {
+    // Set authentication persistence when component mounts
+    setPersistence(auth, browserSessionPersistence)
+    setPersistence(auth, browserSessionPersistence)
+      .then(() => {
+        console.log("persistence set")
+      })
+      .catch((error) => {
+        console.error("Error setting persistence", error);
+      });
+  }, []);
+
+  const handleSignIn = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -89,7 +103,7 @@ const SignIn = () => {
                   <h1 className="text-center">Sign In</h1>
                   <p className="text-center">Welcome back!</p>
 
-                  <form onSubmit={SignIn}>
+                  <form onSubmit={handleSignIn}>
                     <FormGroup>
                       <Label for="email">Email</Label>
                       <Input

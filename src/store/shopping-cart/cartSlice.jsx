@@ -31,56 +31,37 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
 
-  
   reducers: {
     // =========== add item ============
     addItem(state, action) {
       const newItem = action.payload;
-      const id = action.payload.id;
-      const extraIngredients = action.payload.extraIngredients;
-      const existingItem = state.cartItems.find((item) => item.id === id);
+      const existingItem = state.cartItems.find(
+        (item) => item.id === newItem.id
+      );
+      state.totalQuantity++;
 
-      
       if (!existingItem) {
+        // ===== note: if you use just redux you should not mute state array instead of clone the state array, but if you use redux toolkit that will not a problem because redux toolkit clone the array behind the scene
+
         state.cartItems.push({
           id: newItem.id,
           title: newItem.title,
-          image: newItem.image,
+          image01: newItem.image01,
           price: newItem.price,
           quantity: 1,
           totalPrice: newItem.price,
-          extraIngredients: newItem.extraIngredients
         });
-        state.totalQuantity++;
-
-      } else if(existingItem && (JSON.stringify(existingItem.extraIngredients) === JSON.stringify(extraIngredients)))  {
-        state.totalQuantity++;
-        existingItem.quantity++;
       } else {
+        existingItem.quantity++;
+        existingItem.totalPrice =
+          Number(existingItem.totalPrice) + Number(newItem.price);
+      }
 
-        const value = JSON.parse(localStorage.getItem("cartItems"));
-        let index = value.findIndex(s => s.id === existingItem.id);
-        const newValue = {
-        id: existingItem.id,
-        title: existingItem.title,
-        image: existingItem.image,
-        price: existingItem.price,
-        quantity: 1,
-        totalPrice: existingItem.price,
-        extraIngredients: extraIngredients
-      }
-        state.cartItems.splice(index, 1, newValue); 
-        state.totalQuantity = state.cartItems.reduce(
-          (total, item) => total + Number(item.quantity),
-          0
-        );
-      }
-     
       state.totalAmount = state.cartItems.reduce(
         (total, item) => total + Number(item.price) * Number(item.quantity),
+
         0
       );
-
 
       setItemFunc(
         state.cartItems.map((item) => item),
@@ -88,8 +69,6 @@ const cartSlice = createSlice({
         state.totalQuantity
       );
     },
-
-   
 
     // ========= remove item ========
 
